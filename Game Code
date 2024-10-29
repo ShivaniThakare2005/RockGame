@@ -1,0 +1,47 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+string getCChoice() {
+    int RNum = rand() % 3; 
+    if (RNum == 0) return "Rock";
+    else if (RNum == 1) return "Paper";
+    else return "Scissors";
+}
+
+string DWinner(string PChoice, string CChoice) {
+    if (PChoice == CChoice) {
+        return "It's a tie!";
+    } else if ((PChoice == "Rock" && CChoice == "Scissors") ||
+               (PChoice == "Paper" && CChoice == "Rock") ||
+               (PChoice == "Scissors" && CChoice == "Paper")) {
+        return "You win!";
+    } else {
+        return "Computer wins!";
+    }
+}
+
+int main() {
+    srand(static_cast<unsigned int>(time(0))); 
+    string PChoice;
+    cout << "Enter your choice (Rock, Paper, Scissors): ";
+    cin >> PChoice;
+   PChoice[0] = toupper(PChoice[0]);
+    for (size_t i = 1; i < PChoice.length(); ++i) {
+        PChoice[i] = tolower(PChoice[i]);
+    }
+    if (PChoice != "Rock" && PChoice != "Paper" && PChoice != "Scissors") {
+        cout << "Invalid choice! Please enter Rock, Paper, or Scissors." << endl;
+        return 1;
+    }
+
+    string CChoice = getCChoice();
+    cout << "Computer chose: " << CChoice << endl;
+
+    string Result = DWinner(PChoice,CChoice);
+    cout << Result << endl;
+
+    return 0;
+}
